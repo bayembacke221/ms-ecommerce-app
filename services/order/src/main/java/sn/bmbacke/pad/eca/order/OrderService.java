@@ -8,11 +8,10 @@ import sn.bmbacke.pad.eca.customer.CustomerClient;
 import sn.bmbacke.pad.eca.exception.BusinessException;
 import sn.bmbacke.pad.eca.kafka.OrderConfirmation;
 import sn.bmbacke.pad.eca.kafka.OrderProducer;
-import sn.bmbacke.pad.eca.orderline.OrderLine;
 import sn.bmbacke.pad.eca.orderline.OrderLineRequest;
 import sn.bmbacke.pad.eca.orderline.OrderLineService;
-import sn.bmbacke.pad.eca.payment.PaymentClient;
-import sn.bmbacke.pad.eca.payment.PaymentRequest;
+import sn.bmbacke.pad.eca.PaymentClient;
+import sn.bmbacke.pad.eca.PaymentRequest;
 import sn.bmbacke.pad.eca.product.ProductClient;
 import sn.bmbacke.pad.eca.product.PurchaseRequest;
 
