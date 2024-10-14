@@ -11,6 +11,8 @@ import sn.bmbacke.pad.eca.kafka.OrderProducer;
 import sn.bmbacke.pad.eca.orderline.OrderLine;
 import sn.bmbacke.pad.eca.orderline.OrderLineRequest;
 import sn.bmbacke.pad.eca.orderline.OrderLineService;
+import sn.bmbacke.pad.eca.payment.PaymentClient;
+import sn.bmbacke.pad.eca.payment.PaymentRequest;
 import sn.bmbacke.pad.eca.product.ProductClient;
 import sn.bmbacke.pad.eca.product.PurchaseRequest;
 
@@ -32,6 +34,8 @@ public class OrderService {
 
     private final OrderProducer orderProducer;
 
+    private final PaymentClient paymentClient;
+
     public Integer createOrder(@Valid OrderRequest orderRequest) {
         var customer = customerClient.getCustomer(orderRequest.customerId())
                 .orElseThrow(() -> new BusinessException("Cannot create order ::: Customer not found"));
@@ -50,6 +54,16 @@ public class OrderService {
                     )
             );
         }
+
+        var paymentRequest = new PaymentRequest(
+                orderSaved.getId(),
+                orderRequest.amount(),
+                orderRequest.paymentMethod(),
+                orderSaved.getReference(),
+                customer
+        );
+
+        paymentClient.requestOrderPayment(paymentRequest);
 
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
