@@ -1,0 +1,39 @@
+spring:
+  data:
+    mongodb:
+      username: mbacke
+      password: mbacke
+      database: customer
+      host: localhost
+      port: 27017
+      authentication-database: admin
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: paymentGroup, orderGroup
+      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.json.type.mapping: orderConfirmation:sn.bmbacke.pad.eca.kafka.OrderConfirmation,paymentConfirmation:sn.bmbacke.pad.eca.payment.notification.PaymentNotificationRequest
+      auto-offset-reset: earliest
+
+  mail:
+    host: localhost
+    port: 1025
+    username: mbacke
+    password: mbacke
+    properties:
+      mail:
+        smtp:
+          trust: '*'
+        auth: true
+        starttls:
+          enable: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+
+
+server:
+  port: 8040
