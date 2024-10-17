@@ -10,20 +10,21 @@ import org.springframework.stereotype.Service;
 import static org.springframework.kafka.support.KafkaHeaders.TOPIC;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 public class NotificationProducer {
 
-    private final KafkaTemplate<String,PaymentNotificationRequest> kafkaTemplate;
+    private final KafkaTemplate<String, PaymentNotificationRequest> kafkaTemplate;
 
-    public void sendNotification(PaymentNotificationRequest paymentNotificationRequest) {
-        log.info("Sending notification to Kafka topic: {}", paymentNotificationRequest);
+    public void sendNotification(PaymentNotificationRequest request) {
+        log.info("Sending notification with body = < {} >", request);
         Message<PaymentNotificationRequest> message = MessageBuilder
-                .withPayload(paymentNotificationRequest)
+                .withPayload(request)
                 .setHeader(TOPIC, "payment-topic")
                 .build();
 
+        log.info("Sending message to Kafka topic < payment-topic >: {}", message);
+
         kafkaTemplate.send(message);
     }
-
 }

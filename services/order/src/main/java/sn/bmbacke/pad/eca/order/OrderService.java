@@ -3,6 +3,7 @@ package sn.bmbacke.pad.eca.order;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sn.bmbacke.pad.eca.customer.CustomerClient;
 import sn.bmbacke.pad.eca.exception.BusinessException;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final CustomerClient customerClient;
@@ -60,6 +62,11 @@ public class OrderService {
                 orderRequest.paymentMethod(),
                 orderSaved.getReference(),
                 customer
+        );
+
+        log.info(
+                "Order created ::: Payment ::: {} ",
+                paymentRequest
         );
 
         paymentClient.requestOrderPayment(paymentRequest);

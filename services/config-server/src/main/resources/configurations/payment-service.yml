@@ -16,8 +16,10 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: paymentConfirmation:sn.bmbacke.pad.eca.payment.notification.PaymentNotificationRequest
+        spring.json.type.mapping: paymentConfirmation:sn.bmbacke.pad.eca.notification.PaymentNotificationRequest
 
-
+application:
+  config:
+    product-url: http://localhost:8222/api/v1/products
 server:
   port: 8060
