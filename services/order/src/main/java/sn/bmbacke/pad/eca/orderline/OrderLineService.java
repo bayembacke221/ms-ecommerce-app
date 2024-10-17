@@ -9,7 +9,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderLineService {
     private final OrderLineRepository orderLineRepository;
-    private OrderLineMapper mapper;
+    private final OrderLineMapper mapper;
     public Integer saveOrderLine(OrderLineRequest orderLineRequest) {
 
         var orderLine = mapper.toOrderLine(orderLineRequest);
